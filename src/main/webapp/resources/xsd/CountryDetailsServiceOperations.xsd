@@ -1,0 +1,72 @@
+ <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://tutorialspoint.com/webservice/countryservice" xmlns:cs="http://tutorialspoint.com/model/country" targetNamespace="http://tutorialspoint.com/webservice/countryservice" elementFormDefault="qualified">  
+      <xsd:import namespace="http://tutorialspoint.com/model/country" schemaLocation="CountryDetails.xsd"/>  
+      <xsd:element name="CountryDetailsRequest">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="id" type="xsd:int"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>  
+      <xsd:element name="CountryDetailsResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="countryDetails" type="cs:country"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>  
+      
+      <xsd:element name="AllCountryDetailsRequest"/>       
+      <xsd:element name="AllCountryDetailsResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="countryDetails" type="cs:country" maxOccurs="unbounded"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>
+      
+      <xsd:element name="AddCountryDetailsRequest">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="countryDetails" type="cs:country"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>        
+      <xsd:element name="AddCountryDetailsResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                	 <xsd:element name="countryDetails" type="cs:country"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>      
+
+      <xsd:element name="UpdateCountryDetailsRequest">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="countryDetails" type="cs:country"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>        
+      <xsd:element name="UpdateCountryDetailsResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="statusCode" type="xsd:int"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>
+      
+      <xsd:element name="DeleteCountryDetailsRequest">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="id" type="xsd:int"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>  
+      <xsd:element name="DeleteCountryDetailsResponse">  
+           <xsd:complexType>  
+                <xsd:sequence>  
+                     <xsd:element name="statusCode" type="xsd:int"/>  
+                </xsd:sequence>  
+           </xsd:complexType>  
+      </xsd:element>  
+      
+ </xsd:schema> 

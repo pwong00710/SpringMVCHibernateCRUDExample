@@ -1,0 +1,42 @@
+<service name="CountryService" >
+	<Description>
+		Please Type your service description here
+	</Description>
+	<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		<messageReceiver  mep="http://www.w3.org/ns/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+	</messageReceivers>
+	<parameter name="ServiceClass" locked="false">org.arpit.java2blog.service.CountryService</parameter>
+</service>
+
+<!--
+Caused by: java.io.IOException: Unable to load bytecode for class org.arpit.java2blog.service.CountryService$$EnhancerBySpringCGLIB$$b47fcaa7
+-->
+<!--
+ <service name="CountryService">
+    <description>
+        simple spring example
+    </description>
+    <parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier</parameter>
+    <parameter name="SpringBeanName">countryService</parameter>
+    <operation name="getValue">
+        <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/>
+    </operation>
+</service> 
+-->
+
+<!-- 
+Caused by: org.apache.axis2.AxisFault: Spring context file cannot be located for AxisService
+ -->
+<!-- 
+ <service name="CountryService">
+    <description>
+        simple spring example
+    </description>
+    <parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringAppContextAwareObjectSupplier</parameter>
+    <parameter name="SpringBeanName">countryService</parameter>
+    <operation name="getValue">
+        <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/>
+    </operation>
+</service>
+--> 

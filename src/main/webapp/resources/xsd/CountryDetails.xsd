@@ -1,0 +1,15 @@
+ <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://tutorialspoint.com/model/country" targetNamespace="http://tutorialspoint.com/model/country" elementFormDefault="qualified" attributeFormDefault="unqualified">  
+	<xs:element name="id" type="xs:int" />
+	<xs:element name="countryName" type="xs:string" />
+	<xs:element name="population" type="xs:long" />
+	
+	<xs:element name="country" type="country"/> 
+
+	<xs:complexType name="country">  		
+			<xs:sequence>
+				<xs:element ref="id" />
+				<xs:element ref="countryName" />
+				<xs:element ref="population" />
+			</xs:sequence>
+	</xs:complexType> 
+ </xs:schema> 

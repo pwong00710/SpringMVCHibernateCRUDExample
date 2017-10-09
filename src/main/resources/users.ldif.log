@@ -1,0 +1,10 @@
+#!RESULT ERROR
+#!CONNECTION ldap://localhost:10389
+#!DATE 2017-04-23T03:41:00.919
+#!ERROR ENTRY_ALREADY_EXISTS: failed for MessageType : ADD_REQUEST Message ID : 18     Add Request : Entry     dn[n]: dc=example,dc=com     objectClass: extensibleObject     objectClass: domain     objectClass: top     dc: example : ERR_250_ENTRY_ALREADY_EXISTS dc=example,dc=com already exists!
+dn: dc=example,dc=com
+objectClass: extensibleObject
+objectClass: domain
+objectClass: top
+dc: example
+

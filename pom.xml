@@ -1,0 +1,527 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.arpit.java2blog</groupId>
+	<artifactId>SpringMVCHibernateCRUDExample</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SpringMVCHibernateCRUDExample Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- JSON -->		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- Apache Commons DBCP -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- Spring ORM -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+   		<!-- Spring Security -->  
+        <dependency>  
+	        <groupId>org.springframework.security</groupId>  
+	        <artifactId>spring-security-core</artifactId>  
+	        <version>${security.version}</version>  
+        </dependency>
+        <dependency>  
+	        <groupId>org.springframework.security</groupId>  
+	        <artifactId>spring-security-web</artifactId>  
+	        <version>${security.version}</version>  
+        </dependency>  
+        <dependency>
+	        <groupId>org.springframework.security</groupId>  
+	        <artifactId>spring-security-config</artifactId>  
+	        <version>${security.version}</version>  
+        </dependency> 
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-ldap</artifactId>
+		    <version>${security.version}</version>
+		</dependency>		 
+    	<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-taglibs</artifactId>
+        	<version>${security.version}</version>
+    	</dependency>
+		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-adb</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>		
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-adb-codegen</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-ant-plugin</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-clustering</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-codegen</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-corba</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-fastinfoset</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-java2wsdl</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-jaxbri</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-jaxws</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-jibx</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-json</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-kernel</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-metadata</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-mtompolicy</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-saaj</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-soapmonitor-servlet</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-spring</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-base</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-http</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>	
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-jms</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-local</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-mail</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-tcp</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-udp</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-transport-xmpp</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.axis2</groupId>
+		    <artifactId>axis2-xmlbeans</artifactId>
+		    <version>${axis2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.wiztools</groupId>
+			<artifactId>xsd-gen</artifactId>
+			<version>0.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>${webservice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.10.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.17</version>
+		</dependency>	
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.10.19</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.directory.server</groupId>
+		    <artifactId>apacheds-server-jndi</artifactId>
+		    <version>1.5.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>		
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jcl-over-slf4j</artifactId>
+		    <version>${slf4j.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+        <!-- Apache Tiles -->
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-core</artifactId>
+            <version>${apachetiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-api</artifactId>
+            <version>${apachetiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-servlet</artifactId>
+            <version>${apachetiles.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>${apachetiles.version}</version>
+        </dependency>
+
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjrt</artifactId>
+		    <version>${aspectj.version}</version>
+		</dependency>        
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjtools</artifactId>
+		    <version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jasypt</groupId>
+		    <artifactId>jasypt</artifactId>
+		    <version>${jasypt.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.jasypt</groupId>
+		    <artifactId>jasypt-spring31</artifactId>
+		    <version>${jasypt.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-jdbc</artifactId>
+		    <version>${tomcat.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>1.9.6.RELEASE</version>
+		</dependency>
+		<!-- Atomikos -->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-api</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>atomikos-util</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jta</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<!-- Bitronix -->
+		<dependency>
+    		<groupId>org.codehaus.btm</groupId>
+    		<artifactId>btm</artifactId>
+    		<version>${bitronix.version}</version>
+    	</dependency>
+		<!-- ActiveMQ Artifacts -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>    	
+	</dependencies>
+	<build>
+		<finalName>SpringMVCHibernateCRUDExample</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+						<phase>generate-sources</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<clearOutputDir>false</clearOutputDir>
+					<outputDirectory>src/main/java</outputDirectory>
+					<schemaDirectory>src/main/webapp/resources/xsd</schemaDirectory>
+					<includeSchema>**/*.xsd</includeSchema>
+					<bindingDirectory>src/main/resources/bindings</bindingDirectory>
+					<enableIntrospection>false</enableIntrospection>
+				</configuration>
+			</plugin>
+			<!--		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.7</version>
+				<configuration>
+				   <rule ref="rulesets/java/android.xml"/>
+				   <rule ref="rulesets/java/basic.xml"/>
+				   <rule ref="rulesets/ecmascript/basic.xml"/>
+				   <rule ref="rulesets/jsp/basic-jsf.xml"/>
+				   <rule ref="rulesets/jsp/basic.xml"/>
+				   <rule ref="rulesets/vm/basic.xml"/>
+				   <rule ref="rulesets/xml/basic.xml"/>
+				   <rule ref="rulesets/java/braces.xml"/>
+				   <rule ref="rulesets/ecmascript/braces.xml"/>
+				   <rule ref="rulesets/java/clone.xml"/>
+				   <rule ref="rulesets/plsql/codesize.xml"/>
+				   <rule ref="rulesets/java/codesize.xml"/>
+				   <rule ref="rulesets/java/comments.xml"/>
+				   <rule ref="rulesets/java/controversial.xml"/>
+				   <rule ref="rulesets/java/coupling.xml"/>
+				   <rule ref="rulesets/java/design.xml"/>
+				   <rule ref="rulesets/java/empty.xml"/>
+				   <rule ref="rulesets/java/basic.xml"/>
+				   <rule ref="rulesets/java/finalizers.xml"/>
+				   <rule ref="rulesets/java/imports.xml"/>
+				   <rule ref="rulesets/java/j2ee.xml"/>
+				   <rule ref="rulesets/java/junit.xml"/>
+				   <rule ref="rulesets/java/logging-jakarta-commons.xml"/>
+				   <rule ref="rulesets/java/logging-java.xml"/>
+				   <rule ref="rulesets/java/javabeans.xml"/>
+				   <rule ref="rulesets/java/migrating.xml"/>
+				   <rule ref="rulesets/java/naming.xml"/>
+				   <rule ref="rulesets/java/optimizations.xml"/>
+				   <rule ref="rulesets/plsql/dates.xml"/>
+				   <rule ref="rulesets/java/sunsecure.xml"/>
+				   <rule ref="rulesets/java/strictexception.xml"/>
+				   <rule ref="rulesets/java/strings.xml"/>
+				   <rule ref="rulesets/plsql/TomKytesDespair.xml"/>
+				   <rule ref="rulesets/ecmascript/unnecessary.xml"/>
+				   <rule ref="rulesets/java/unnecessary.xml"/>
+				   <rule ref="rulesets/java/basic.xml"/>
+				   <rule ref="rulesets/ecmascript/unnecessary.xml"/>
+				   <rule ref="rulesets/java/unusedcode.xml"/>
+				   <rule ref="rulesets/xsl/xpath.xml"/>
+				</configuration>
+		        <executions>
+		          <execution>
+		            <goals>
+		              <goal>check</goal>
+		              <goal>cpd-check</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+			</plugin>
+			-->		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+	<properties>
+		<spring.version>4.2.1.RELEASE</spring.version>
+		<security.version>4.0.3.RELEASE</security.version>
+		<webservice.version>2.4.0.RELEASE</webservice.version>
+		<jdk.version>1.7</jdk.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+		<org.aspectj-version>1.7.4</org.aspectj-version>
+		<axis2.version>1.7.4</axis2.version>
+		<junit.version>4.12</junit.version>
+		<apachetiles.version>3.0.5</apachetiles.version>
+		<slf4j.version>1.5.11</slf4j.version>
+		<aspectj.version>1.8.9</aspectj.version>
+		<jasypt.version>1.9.2</jasypt.version>
+		<tomcat.version>7.0.73</tomcat.version>
+		<atomikos.version>4.0.4</atomikos.version>
+		<bitronix.version>2.1.4</bitronix.version>
+		<activemq.version>5.14.5</activemq.version>
+		<mysql.version>5.1.6</mysql.version>
+	</properties>
+</project>
+

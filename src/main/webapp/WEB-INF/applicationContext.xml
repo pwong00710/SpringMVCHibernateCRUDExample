@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop = "http://www.springframework.org/schema/aop"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/aop 
+   		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<annotation-driven />		
+	
+	<context:annotation-config />
+	
+	<context:component-scan base-package="org.arpit.java2blog" />	
+	
+	<!--		
+	<context:property-placeholder location="classpath:SpringMVCHibernateCRUDExample.properties"/>
+	-->
+
+	<beans:bean id="environmentVariablesConfiguration"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<beans:property name="algorithm" value="PBEWithMD5AndDES" />
+		<beans:property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD" />
+	</beans:bean>
+
+	<beans:bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<beans:property name="config" ref="environmentVariablesConfiguration" />
+	</beans:bean>
+
+	<beans:bean id="propertyConfigurer"
+		class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<beans:constructor-arg ref="configurationEncryptor" />
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>classpath:SpringMVCHibernateCRUDExample.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- non XA configuration -->
+	<!--
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="${jdbc.url}" />
+		<beans:property name="username" value="${jdbc.username}" />
+		<beans:property name="password" value="${jdbc.password}" />
+	</beans:bean>
+
+	<beans:bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="annotatedClasses">
+			<beans:list>
+				<beans:value>org.arpit.java2blog.model.Country</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</beans:prop>
+				<beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory"
+			ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	-->	
+	
+	<!-- Atomikos XA configuration -->
+	<!--
+	<context:component-scan base-package="com.atomikos.icatch.jta.hibernate4" />
+	
+	<tx:annotation-driven transaction-manager="transactionManager" mode="proxy" proxy-target-class="false" />
+	
+	<aop:aspectj-autoproxy />
+	
+	<beans:bean id="mysqlXADataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlXADataSource">
+		<beans:property name="user" value="${jdbc.username}" />
+		<beans:property name="password" value="${jdbc.password}"/>
+		<beans:property name="url" value="${jdbc.url}"/>
+	</beans:bean>
+	
+  <beans:bean id="txService" class="com.atomikos.icatch.config.UserTransactionServiceImp"
+    init-method="init" destroy-method="shutdownWait">
+  </beans:bean>
+
+  <beans:bean id="txManager" class="com.atomikos.icatch.jta.J2eeTransactionManager" depends-on="txService" />
+
+  <beans:bean id="userTx" class="com.atomikos.icatch.jta.J2eeUserTransaction" depends-on="txService" />
+
+  <beans:bean id="transactionManager"
+    class="org.springframework.transaction.jta.JtaTransactionManager">
+    <beans:property name="userTransaction" ref="userTx"></beans:property>
+    <beans:property name="transactionManager" ref="txManager"></beans:property>
+  </beans:bean>
+
+  <beans:bean id="dataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+    destroy-method="close" init-method="init" depends-on="txService">
+    <beans:property name="uniqueResourceName" value="atomikos-j2ee" />
+    <beans:property name="maxPoolSize" value="10" />
+    <beans:property name="minPoolSize" value="5" />
+    <beans:property name="xaDataSource" ref="mysqlXADataSource" />
+  </beans:bean>
+
+  <beans:bean
+    class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+  <beans:bean
+    class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+  <beans:bean id="entityManagerFactory"
+    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <beans:property name="jpaVendorAdapter">
+      <beans:bean
+        class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <beans:property name="database" value="MYSQL" />
+      </beans:bean>
+    </beans:property>
+    <beans:property name="packagesToScan" value="com.atomikos.icatch.jta.hibernate4" />
+    <beans:property name="jtaDataSource" ref="dataSource" />
+    <beans:property name="jpaPropertyMap">
+      <beans:props>
+        <beans:prop key="hibernate.current_session_context_class">jta</beans:prop>
+        <beans:prop key="javax.persistence.transactionType">jta</beans:prop>
+        <beans:prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosJ2eePlatform</beans:prop>
+        <beans:prop key="hibernate.hbm2ddl.auto">create</beans:prop>
+        <beans:prop key="hibernate.search.autoregister_listeners">false</beans:prop>
+      </beans:props>
+    </beans:property>
+  </beans:bean>
+  
+  <jpa:repositories base-package="com.atomikos.icatch.jta.hibernate4" 
+    entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager" />
+    
+  <tx:annotation-driven transaction-manager="transactionManager" />
+  -->
+  
+  <!-- Bitronix XA configuration -->
+  <beans:bean id="btmConfig" factory-method="getConfiguration" class="bitronix.tm.TransactionManagerServices">
+    <beans:property name="serverId" value="${bitronix.node.name}-btx-server" />
+    <beans:property name="logPart1Filename" value="${bitronix.transaction.manager.logfile1}" />
+    <beans:property name="logPart2Filename" value="${bitronix.transaction.manager.logfile2}" />
+  </beans:bean>
+
+  <beans:bean id="bitronixTransactionManager" factory-method="getTransactionManager" class="bitronix.tm.TransactionManagerServices"
+    depends-on="btmConfig" destroy-method="shutdown" />
+
+  <beans:bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" primary="true">
+    <beans:property name="transactionManager" ref="bitronixTransactionManager" />
+    <beans:property name="userTransaction" ref="bitronixTransactionManager" />
+  </beans:bean>
+  
+  <beans:bean id="jtaTransactionFactory" class="my.project.hibernate.LocalJtaTransactionFactory">
+    <beans:property name="userTransaction" ref="bitronixTransactionManager" />
+  </beans:bean>  
+
+  <beans:bean id="dataSource" class="bitronix.tm.resource.jdbc.PoolingDataSource" init-method="init" destroy-method="close"
+    primary="true">
+    <beans:property name="uniqueName" value="secondary-postgres" />
+    <beans:property name="className" value="bitronix.tm.resource.jdbc.lrc.LrcXADataSource" />
+    <beans:property name="maxPoolSize" value="${db.pool.size:1}" />
+    <beans:property name="testQuery" value="SELECT 1" />
+    <beans:property name="allowLocalTransactions" value="true" />
+    <beans:property name="driverProperties">
+      <beans:props>
+        <beans:prop key="user">${jdbc.username}</beans:prop>
+        <beans:prop key="password">${jdbc.password}</beans:prop>
+        <beans:prop key="url">${jdbc.url}</beans:prop>
+        <beans:prop key="driverClassName">com.mysql.jdbc.Driver</beans:prop>
+      </beans:props>
+    </beans:property>
+  </beans:bean>
+
+  <beans:bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="jtaTransactionFactory">
+	<beans:property name="dataSource" ref="dataSource"></beans:property>
+	<beans:property name="annotatedClasses">
+		<beans:list>
+			<beans:value>org.arpit.java2blog.model.Country</beans:value>
+		</beans:list>
+	</beans:property>
+	<beans:property name="jtaTransactionManager" ref="transactionManager"></beans:property>
+	<beans:property name="hibernateProperties">
+		<beans:props>
+			<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+			<beans:prop key="hibernate.current_session_context_class">jta</beans:prop>
+			<beans:prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory</beans:prop>
+			<beans:prop key="hibernate.transaction.jta.platform">org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform</beans:prop>
+			<beans:prop key="hibernate.connection.release_mode">auto</beans:prop>
+			<beans:prop key="hibernate.transaction.auto_close_session">true</beans:prop>
+			<beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+		</beans:props>
+	</beans:property>
+	<beans:property name="packagesToScan" value="bitronix.tm" />
+  </beans:bean>
+  
+  <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans:beans>
+
