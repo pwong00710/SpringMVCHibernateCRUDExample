@@ -82,7 +82,7 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
+			<version>${aspectj.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -510,7 +510,6 @@
 		<webservice.version>2.4.0.RELEASE</webservice.version>
 		<jdk.version>1.7</jdk.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
-		<org.aspectj-version>1.7.4</org.aspectj-version>
 		<axis2.version>1.7.4</axis2.version>
 		<junit.version>4.12</junit.version>
 		<apachetiles.version>3.0.5</apachetiles.version>
@@ -522,6 +521,7 @@
 		<bitronix.version>2.1.4</bitronix.version>
 		<activemq.version>5.14.5</activemq.version>
 		<mysql.version>5.1.6</mysql.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>
 
