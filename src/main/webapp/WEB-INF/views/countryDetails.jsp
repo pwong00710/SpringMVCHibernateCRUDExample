@@ -258,7 +258,9 @@ td, th {
 	<h3>Welcome ${username}! (<%= currentDate %>)</h3>
 	-->
 	
+	<!--
 	<h3>Welcome!</h3>
+	-->
 
 	<!-- Spring MVC -->
 	<!--
