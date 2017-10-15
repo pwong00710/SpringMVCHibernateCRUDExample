@@ -27,6 +27,7 @@ import org.arpit.java2blog.model.Country;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ import org.springframework.http.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore
 public class SpringRestfulTest {
 	
 	static final String baseURL = "http://localhost:8080/SpringMVCHibernateCRUDExample";

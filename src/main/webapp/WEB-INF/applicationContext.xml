@@ -18,11 +18,10 @@
 	<context:annotation-config />
 	
 	<context:component-scan base-package="org.arpit.java2blog" />	
-	
-	<!--		
+			
 	<context:property-placeholder location="classpath:SpringMVCHibernateCRUDExample.properties"/>
-	-->
 
+	<!--
 	<beans:bean id="environmentVariablesConfiguration"
 		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
 		<beans:property name="algorithm" value="PBEWithMD5AndDES" />
@@ -42,6 +41,7 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
+	-->
 	
 	<!-- non XA configuration -->
 	<!--
